@@ -23,11 +23,19 @@ public class User {
     @Column(nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private UserRoleEnum role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private RefreshToken refreshToken;
+
     @Builder
-    public User(String username, String password, String nickname) {
+    public User(String username, String password, String nickname, UserRoleEnum role) {
 
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        this.role = role;
     }
 }
